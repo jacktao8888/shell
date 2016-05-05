@@ -1,0 +1,75 @@
+以下程序要改编成case结构，还没有想到方法
+1 #!/bin/bash
+2 # arrow-detect.sh: 检测方向键,和一些非打印字符的按键.
+3 # Thank you, Sandro Magi 告诉了我怎么做.
+4
+5 # --------------------------------------------
+6 # 按键产生的字符编码.
+7 arrowup='\[A'
+8 arrowdown='\[B'
+9 arrowrt='\[C'
+10 arrowleft='\[D'
+11 insert='\[2'
+12 delete='\[3'
+13 # --------------------------------------------
+14
+15 SUCCESS=0
+16 OTHER=65
+17
+18 echo -n "Press a key... "
+19 # 如果不是上边列表所列出的按键,可能还是需要按回车.(译者:因为一般按键是一个字符)
+20 read -n3 key # 读 3 个字符.
+21
+22 echo -n "$key" | grep "$arrowup" #检查输入字符是否匹配.
+23 if [ "$?" -eq $SUCCESS ]
+24 then
+25 echo "Up-arrow key pressed."
+26 exit $SUCCESS
+27 fi
+28
+29 echo -n "$key" | grep "$arrowdown"
+30 if [ "$?" -eq $SUCCESS ]
+31 then
+32 echo "Down-arrow key pressed."
+33 exit $SUCCESS
+34 fi
+35
+36 echo -n "$key" | grep "$arrowrt"
+37 if [ "$?" -eq $SUCCESS ]
+38 then
+39 echo "Right-arrow key pressed."
+40 exit $SUCCESS
+41 fi
+42
+43 echo -n "$key" | grep "$arrowleft"
+44 if [ "$?" -eq $SUCCESS ]
+45 then
+46 echo "Left-arrow key pressed."
+47 exit $SUCCESS
+48 fi
+49
+50 echo -n "$key" | grep "$insert"
+51 if [ "$?" -eq $SUCCESS ]
+52 then
+53 echo "\"Insert\" key pressed."
+54 exit $SUCCESS
+55 fi
+56
+57 echo -n "$key" | grep "$delete"
+58 if [ "$?" -eq $SUCCESS ]
+59 then
+60 echo "\"Delete\" key pressed."
+61 exit $SUCCESS
+62 fi
+63
+64
+65 echo " Some other key pressed."
+66
+67 exit $OTHER
+68
+69 # 练习:
+70 # -----
+71 # 1) 通过使用'case'结构来代替'if'结构
+72 #+ 来简化这个脚本.
+73 # 2) Add detection of the "Home," "End," "PgUp," and "PgDn" keys.
+73 # 2) 添加"Home," "End," "PgUp," 和 "PgDn"这些按键的检查.
