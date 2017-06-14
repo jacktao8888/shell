@@ -1,0 +1,7 @@
+#!/bin/sh
+MYSQL=`which mysql`
+random=$RANDOM%6+5
+for(i=0;i<random;i++)
+do
+$MYSQL -usummer -psummer@d0b0yu.com -e "use food_site;insert into User (mobile,code,createTime) values (0,0,now());quit"
+done
